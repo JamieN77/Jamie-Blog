@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamie Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <header class="navigation">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light px-0">
+                <a class="navbar-brand order-1 py-0" href="/">
+                    <img loading="prelaod" decoding="async" class="img-fluid" id="jamielogo" src="images/jamiebloga.png"
+                        alt="Jamie's Blog Logo">
+                </a>
+                <div class="navbar-actions order-3 ml-0 ml-md-4">
+                    <button aria-label="navbar toggler" class="navbar-toggler border-0" type="button"
+                        data-toggle="collapse" data-target="#navigation"> <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <form action="#!" class="search order-lg-3 order-md-2 order-3 ml-auto">
+                    <input id="search-query" name="s" type="search" placeholder="Search..." autocomplete="off">
+                </form>
+                <div class="collapse navbar-collapse text-center order-lg-2 order-4" id="navigation">
+                    <ul class="navbar-nav mx-auto mt-3 mt-lg-0">
+                        <li class="nav-item"> <a class="nav-link" href="about.html">Home</a>
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/create">Create Post</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <hr />
+    </header>
+
+
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs mb-5">
+                    </div>
+                    <h1 class="mb-4 border-bottom border-primary d-inline-block mb-5">Your blogs</h1>
+                </div>
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 post">
+                            <% if (locals.posts && posts.length>=1) { %>
+                                <article class="card article-card article-card-sm h-100">
+                                    <a href="/article/0">
+
+                                        <div class="card-image">
+                                            <div class="post-info"> <span class="text-uppercase">
+                                                    <%= posts[0].date %>
+                                                </span>
+                                            </div>
+                                            <img loading="lazy" decoding="async" src="<%= posts[0].imagePath %>"
+                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
+                                        </div>
+                                    </a>
+                                    <div class="card-body px-0 pb-0">
+
+                                        <h2><a class="post-title" href="/article/0">
+                                                <%= posts[0].title %>
+                                            </a></h2>
+                                        <p class="card-text">
+                                            <%= posts[0].content.length> 100 ? posts[0].content.substring(0, 100) +
+                                                '...' : posts[0].content %>
+                                        </p>
+                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/0">Edit</a>
+                                            <form action="/delete/0" method="post">
+                                                <button type="submit" onclick="return confirmDelete()"
+                                                    class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </article>
+                                <% } %>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <% if (locals.posts && posts.length>=2) { %>
+                                <article class="card article-card article-card-sm h-100">
+                                    <a href="/article/1">
+                                        <div class="card-image">
+                                            <div class="post-info"> <span class="text-uppercase">
+                                                    <%= posts[1].date %>
+                                                </span>
+                                            </div>
+                                            <img loading="lazy" decoding="async" src="<%= posts[1].imagePath %>"
+                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
+                                        </div>
+                                    </a>
+                                    <div class="card-body px-0 pb-0">
+
+                                        <h2><a class="post-title" href="/article/1">
+                                                <%= posts[1].title %>
+                                            </a></h2>
+                                        <p class="card-text">
+                                            <%= posts[1].content.length> 100 ? posts[1].content.substring(0, 100) +
+                                                '...' : posts[1].content %>
+                                        </p>
+                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/1">Edit</a>
+                                            <form action="/delete/1" method="post">
+                                                <button type="submit" onclick="return confirmDelete()"
+                                                    class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </article>
+                                <% } %>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <% if (locals.posts && posts.length>=3) { %>
+                                <article class="card article-card article-card-sm h-100">
+                                    <a href="/article/2">
+                                        <div class="card-image">
+                                            <div class="post-info"> <span class="text-uppercase">
+                                                    <%= posts[2].date %>
+                                                </span>
+
+                                            </div>
+                                            <img loading="lazy" decoding="async" src="<%= posts[2].imagePath %>"
+                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
+                                        </div>
+                                    </a>
+                                    <div class="card-body px-0 pb-0">
+
+                                        <h2><a class="post-title" href="/article/2">
+                                                <%= posts[2].title %>
+                                            </a></h2>
+                                        <p class="card-text">
+                                            <%= posts[2].content.length> 100 ? posts[2].content.substring(0, 100) +
+                                                '...' : posts[2].content %>
+                                        </p>
+                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/2">Edit</a>
+                                            <form action="/delete/2" method="post">
+                                                <button type="submit" onclick="return confirmDelete()"
+                                                    class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </article>
+                                <% } %>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <% if (locals.posts && posts.length>=4) { %>
+                                <article class="card article-card article-card-sm h-100">
+                                    <a href="/article/3">
+                                        <div class="card-image">
+                                            <div class="post-info"> <span class="text-uppercase">
+                                                    <%= posts[3].date %>
+                                                </span>
+
+                                            </div>
+                                            <img loading="lazy" decoding="async" src="<%= posts[3].imagePath %>"
+                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
+                                        </div>
+                                    </a>
+                                    <div class="card-body px-0 pb-0">
+
+                                        <h2><a class="post-title" href="/article/3">
+                                                <%= posts[3].title %>
+                                            </a></h2>
+                                        <p class="card-text">
+                                            <%= posts[3].content.length> 100 ? posts[3].content.substring(0, 100) +
+                                                '...' : posts[3].content %>
+                                        </p>
+                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/3">Edit</a>
+                                            <form action="/delete/3" method="post">
+                                                <button type="submit" onclick="return confirmDelete()"
+                                                    class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </article>
+                                <% } %>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <% if (locals.posts && posts.length>=5) { %>
+                                <article class="card article-card article-card-sm h-100">
+                                    <a href="/article/4">
+                                        <div class="card-image">
+                                            <div class="post-info"> <span class="text-uppercase">
+                                                    <%= posts[4].date %>
+                                                </span>
+
+                                            </div>
+                                            <img loading="lazy" decoding="async" src="<%= posts[4].imagePath %>"
+                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
+                                        </div>
+                                    </a>
+                                    <div class="card-body px-0 pb-0">
+
+                                        <h2><a class="post-title" href="/article/4">
+                                                <%= posts[4].title %>
+                                            </a></h2>
+                                        <p class="card-text">
+                                            <%= posts[4].content.length> 100 ? posts[4].content.substring(0, 100) +
+                                                '...' : posts[4].content %>
+                                        </p>
+                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/4">Edit</a>
+                                            <form action="/delete/4" method="post">
+                                                <button type="submit" onclick="return confirmDelete()"
+                                                    class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </article>
+                                <% } %>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <% if (locals.posts && posts.length>=6) { %>
+                                <article class="card article-card article-card-sm h-100">
+                                    <a href="/article/5">
+                                        <div class="card-image">
+                                            <div class="post-info"> <span class="text-uppercase">
+                                                    <%= posts[5].date %>
+                                                </span>
+
+                                            </div>
+                                            <img loading="lazy" decoding="async" src="<%= posts[5].imagePath %>"
+                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
+                                        </div>
+                                    </a>
+                                    <div class="card-body px-0 pb-0">
+
+                                        <h2><a class="post-title" href="/article/5">
+                                                <%= posts[5].title %>
+                                            </a></h2>
+                                        <p class="card-text">
+                                            <%= posts[5].content.length> 100 ? posts[5].content.substring(0, 100) +
+                                                '...' : posts[5].content %>
+                                        </p>
+                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/5">Edit</a>
+                                            <form action="/delete/5" method="post">
+                                                <button type="submit" onclick="return confirmDelete()"
+                                                    class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </article>
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="widget-blocks">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="widget">
+                                    <div class="widget-body">
+                                        <img loading="lazy" decoding="async" src="./images/i2.jpg" alt="About Me"
+                                            class="w-100 author-thumb-sm d-block">
+                                        <h2 class="widget-title my-3">Jamie Nagy</h2>
+                                        <p class="mb-3 pb-2">This person doesn't have any bio
+                                        </p>
+                                        <button class="btn btn-sm btn-outline-primary devButton">Profile</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6">
+                                <div class="widget">
+                                    <h2 class="section-title mb-3">Explore</h2>
+                                    <div class="widget-body">
+                                        <div class="widget-list">
+                                            <article class="card mb-4">
+                                                <div class="card-image">
+                                                    <div class="post-info">
+                                                    </div>
+                                                    <img loading="lazy" decoding="async" src="./images/i2.jpg"
+                                                        alt="Post Thumbnail" class="w-100">
+                                                </div>
+                                                <div class="card-body px-0 pb-1">
+                                                    <h3>Portugal
+                                                        and
+                                                        France Now
+                                                        Allow Unvaccinated Tourists</h3>
+                                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur
+                                                        adipiscing
+                                                        elit, sed do eiusmod tempor …</p>
+                                                    <div class="fakebtn"> <button
+                                                            class="btn btn-sm btn-outline-primary devButton">Read Full
+                                                            Article</button>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                            <article class="card mb-4">
+                                                <div class="card-image">
+                                                    <div class="post-info">
+                                                    </div>
+                                                    <img loading="lazy" decoding="async" src="./images/i2.jpg"
+                                                        alt="Post Thumbnail" class="w-100">
+                                                </div>
+                                                <div class="card-body px-0 pb-1">
+                                                    <h3>Portugal
+                                                        and
+                                                        France Now
+                                                        Allow Unvaccinated Tourists</h3>
+                                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur
+                                                        adipiscing
+                                                        elit, sed do eiusmod tempor …</p>
+                                                    <div class="fakebtn"> <button
+                                                            class="btn btn-sm btn-outline-primary devButton">Read Full
+                                                            Article</button>
+                                                    </div>
+                                                </div>
+                                            </article>
+
+
+
+                                            <article class="card mb-4">
+                                                <div class="card-image">
+                                                    <div class="post-info">
+                                                    </div>
+                                                    <img loading="lazy" decoding="async" src="./images/i2.jpg"
+                                                        alt="Post Thumbnail" class="w-100">
+                                                </div>
+                                                <div class="card-body px-0 pb-1">
+                                                    <h3>Portugal
+                                                        and
+                                                        France Now
+                                                        Allow Unvaccinated Tourists</h3>
+                                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur
+                                                        adipiscing
+                                                        elit, sed do eiusmod tempor …</p>
+                                                    <div class="fakebtn"> <button
+                                                            class="btn btn-sm btn-outline-primary devButton">Read Full
+                                                            Article</button>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                            <article class="card mb-4">
+                                                <div class="card-image">
+                                                    <div class="post-info">
+                                                    </div>
+                                                    <img loading="lazy" decoding="async" src="./images/i2.jpg"
+                                                        alt="Post Thumbnail" class="w-100">
+                                                </div>
+                                                <div class="card-body px-0 pb-1">
+                                                    <h3>Portugal
+                                                        and
+                                                        France Now
+                                                        Allow Unvaccinated Tourists</h3>
+                                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur
+                                                        adipiscing
+                                                        elit, sed do eiusmod tempor …</p>
+                                                    <div class="fakebtn"> <button
+                                                            class="btn btn-sm btn-outline-primary devButton">Read Full
+                                                            Article</button>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
