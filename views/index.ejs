@@ -51,203 +51,38 @@
                 </div>
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="row">
-                        <div class="col-md-6 mb-4 post">
-                            <% if (locals.posts && posts.length>=1) { %>
+                        <% posts.forEach((post)=> { %>
+                            <div class="col-md-6 mb-4 post">
                                 <article class="card article-card article-card-sm h-100">
-                                    <a href="/article/0">
-
+                                    <a href="/article/<%= post.id %>">
                                         <div class="card-image">
                                             <div class="post-info"> <span class="text-uppercase">
-                                                    <%= posts[0].date %>
+                                                    <%= post.date %>
                                                 </span>
                                             </div>
-                                            <img loading="lazy" decoding="async" src="<%= posts[0].imagePath %>"
+                                            <img loading="lazy" decoding="async" src="<%= post.imagePath %>"
                                                 alt="Post Thumbnail" class="w-100" width="420" height="280">
                                         </div>
                                     </a>
                                     <div class="card-body px-0 pb-0">
-
-                                        <h2><a class="post-title" href="/article/0">
-                                                <%= posts[0].title %>
+                                        <h2><a class="post-title" href="/article/<%= post.id %>">
+                                                <%= post.title %>
                                             </a></h2>
                                         <p class="card-text">
-                                            <%= posts[0].content.length> 100 ? posts[0].content.substring(0, 100) +
-                                                '...' : posts[0].content %>
+                                            <%= post.content.length> 100 ? post.content.substring(0, 100) + '...' :
+                                                post.content %>
                                         </p>
-                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/0">Edit</a>
-                                            <form action="/delete/0" method="post">
+                                        <div class="edit-link">
+                                            <a class="read-more-btn" href="/edit/<%= post.id %>">Edit</a>
+                                            <form action="/delete/<%= post.id %>" method="post">
                                                 <button type="submit" onclick="return confirmDelete()"
                                                     class="btn btn-danger">Delete</button>
                                             </form>
                                         </div>
                                     </div>
                                 </article>
-                                <% } %>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <% if (locals.posts && posts.length>=2) { %>
-                                <article class="card article-card article-card-sm h-100">
-                                    <a href="/article/1">
-                                        <div class="card-image">
-                                            <div class="post-info"> <span class="text-uppercase">
-                                                    <%= posts[1].date %>
-                                                </span>
-                                            </div>
-                                            <img loading="lazy" decoding="async" src="<%= posts[1].imagePath %>"
-                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
-                                        </div>
-                                    </a>
-                                    <div class="card-body px-0 pb-0">
-
-                                        <h2><a class="post-title" href="/article/1">
-                                                <%= posts[1].title %>
-                                            </a></h2>
-                                        <p class="card-text">
-                                            <%= posts[1].content.length> 100 ? posts[1].content.substring(0, 100) +
-                                                '...' : posts[1].content %>
-                                        </p>
-                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/1">Edit</a>
-                                            <form action="/delete/1" method="post">
-                                                <button type="submit" onclick="return confirmDelete()"
-                                                    class="btn btn-danger">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </article>
-                                <% } %>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <% if (locals.posts && posts.length>=3) { %>
-                                <article class="card article-card article-card-sm h-100">
-                                    <a href="/article/2">
-                                        <div class="card-image">
-                                            <div class="post-info"> <span class="text-uppercase">
-                                                    <%= posts[2].date %>
-                                                </span>
-
-                                            </div>
-                                            <img loading="lazy" decoding="async" src="<%= posts[2].imagePath %>"
-                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
-                                        </div>
-                                    </a>
-                                    <div class="card-body px-0 pb-0">
-
-                                        <h2><a class="post-title" href="/article/2">
-                                                <%= posts[2].title %>
-                                            </a></h2>
-                                        <p class="card-text">
-                                            <%= posts[2].content.length> 100 ? posts[2].content.substring(0, 100) +
-                                                '...' : posts[2].content %>
-                                        </p>
-                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/2">Edit</a>
-                                            <form action="/delete/2" method="post">
-                                                <button type="submit" onclick="return confirmDelete()"
-                                                    class="btn btn-danger">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </article>
-                                <% } %>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <% if (locals.posts && posts.length>=4) { %>
-                                <article class="card article-card article-card-sm h-100">
-                                    <a href="/article/3">
-                                        <div class="card-image">
-                                            <div class="post-info"> <span class="text-uppercase">
-                                                    <%= posts[3].date %>
-                                                </span>
-
-                                            </div>
-                                            <img loading="lazy" decoding="async" src="<%= posts[3].imagePath %>"
-                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
-                                        </div>
-                                    </a>
-                                    <div class="card-body px-0 pb-0">
-
-                                        <h2><a class="post-title" href="/article/3">
-                                                <%= posts[3].title %>
-                                            </a></h2>
-                                        <p class="card-text">
-                                            <%= posts[3].content.length> 100 ? posts[3].content.substring(0, 100) +
-                                                '...' : posts[3].content %>
-                                        </p>
-                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/3">Edit</a>
-                                            <form action="/delete/3" method="post">
-                                                <button type="submit" onclick="return confirmDelete()"
-                                                    class="btn btn-danger">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </article>
-                                <% } %>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <% if (locals.posts && posts.length>=5) { %>
-                                <article class="card article-card article-card-sm h-100">
-                                    <a href="/article/4">
-                                        <div class="card-image">
-                                            <div class="post-info"> <span class="text-uppercase">
-                                                    <%= posts[4].date %>
-                                                </span>
-
-                                            </div>
-                                            <img loading="lazy" decoding="async" src="<%= posts[4].imagePath %>"
-                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
-                                        </div>
-                                    </a>
-                                    <div class="card-body px-0 pb-0">
-
-                                        <h2><a class="post-title" href="/article/4">
-                                                <%= posts[4].title %>
-                                            </a></h2>
-                                        <p class="card-text">
-                                            <%= posts[4].content.length> 100 ? posts[4].content.substring(0, 100) +
-                                                '...' : posts[4].content %>
-                                        </p>
-                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/4">Edit</a>
-                                            <form action="/delete/4" method="post">
-                                                <button type="submit" onclick="return confirmDelete()"
-                                                    class="btn btn-danger">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </article>
-                                <% } %>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <% if (locals.posts && posts.length>=6) { %>
-                                <article class="card article-card article-card-sm h-100">
-                                    <a href="/article/5">
-                                        <div class="card-image">
-                                            <div class="post-info"> <span class="text-uppercase">
-                                                    <%= posts[5].date %>
-                                                </span>
-
-                                            </div>
-                                            <img loading="lazy" decoding="async" src="<%= posts[5].imagePath %>"
-                                                alt="Post Thumbnail" class="w-100" width="420" height="280">
-                                        </div>
-                                    </a>
-                                    <div class="card-body px-0 pb-0">
-
-                                        <h2><a class="post-title" href="/article/5">
-                                                <%= posts[5].title %>
-                                            </a></h2>
-                                        <p class="card-text">
-                                            <%= posts[5].content.length> 100 ? posts[5].content.substring(0, 100) +
-                                                '...' : posts[5].content %>
-                                        </p>
-                                        <div class="edit-link"> <a class="read-more-btn" href="/edit/5">Edit</a>
-                                            <form action="/delete/5" method="post">
-                                                <button type="submit" onclick="return confirmDelete()"
-                                                    class="btn btn-danger">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </article>
-                                <% } %>
-                        </div>
+                            </div>
+                            <% }); %>
                     </div>
                 </div>
                 <div class="col-lg-4">
