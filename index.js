@@ -37,6 +37,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 const options = { day: "2-digit", month: "short", year: "numeric" };
 
+app.use(express.static("public"));
+app.use("/userimg", express.static("userimg"));
+
 // API routes
 // Example: Get all posts
 app.get("/posts", async (req, res) => {

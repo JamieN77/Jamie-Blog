@@ -1,20 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Import the Link component
 
 const Header = () => {
   return (
     <header className="navigation">
       <div className="container">
         <nav className="navbar navbar-expand-lg navbar-light px-0">
-          <a className="navbar-brand order-1 py-0" href="/">
+          <Link className="navbar-brand order-1 py-0" to="/">
             <img
               loading="preload"
               decoding="async"
               className="img-fluid"
               id="jamielogo"
-              src="/images/jamiebloga.png"
+              src="http://localhost:4000/images/jamiebloga.png"
               alt="Jamie's Blog Logo"
             />
-          </a>
+          </Link>
           <div className="navbar-actions order-3 ml-0 ml-md-4">
             <button
               aria-label="navbar toggler"
@@ -45,22 +46,19 @@ const Header = () => {
           >
             <ul className="navbar-nav mx-auto mt-3 mt-lg-0">
               <li className="nav-item">
-                {" "}
-                <a className="nav-link" href="about.html">
+                <Link className="nav-link" to="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                {" "}
-                <a className="nav-link" href="contact.html">
-                  Contact
-                </a>
+                <Link className="nav-link" to="/contact">
+                  Contact Me
+                </Link>
               </li>
               <li className="nav-item">
-                {" "}
-                <a className="nav-link" href="/create">
+                <Link className="nav-link" to="/create">
                   Create Post
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

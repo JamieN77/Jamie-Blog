@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Post = ({ post, onDelete }) => {
   const handleDelete = async () => {
@@ -21,7 +22,7 @@ const Post = ({ post, onDelete }) => {
   return (
     <div className="col-md-6 mb-4 post">
       <article className="card article-card article-card-sm h-100">
-        <a href={`/article/${post.id}`}>
+        <Link to={`/article/${post.id}`}>
           <div className="card-image">
             <div className="post-info">
               <span className="text-uppercase">{post.date}</span>
@@ -29,20 +30,20 @@ const Post = ({ post, onDelete }) => {
             <img
               loading="lazy"
               decoding="async"
-              src={post.imagePath}
+              src={`http://localhost:4000/${post.imagepath}`} // The name in db column is imagepath
               alt="Post Thumbnail"
               className="w-100"
             />
           </div>
-        </a>
+        </Link>
         <div className="card-body px-0 pb-0">
           <h2>
-            <a
+            <Link
               className="post-title"
-              href={`http://localhost:4000/article/${post.id}`}
+              to={`http://localhost:4000/article/${post.id}`}
             >
               {post.title}
-            </a>
+            </Link>
           </h2>
           <p className="card-text">
             {post.content.length > 100
@@ -50,10 +51,7 @@ const Post = ({ post, onDelete }) => {
               : post.content}
           </p>
           <div className="edit-link">
-            <a
-              className="read-more-btn"
-              href={`http://localhost:4000/edit/${post.id}`}
-            >
+            <a className="read-more-btn" href={`/edit/${post.id}`}>
               Edit
             </a>
             <button
