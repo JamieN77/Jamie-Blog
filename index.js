@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import multer from "multer";
 import path from "path";
 import pg from "pg";
+import cors from "cors";
 
 const app = express();
 const port = 4000;
@@ -19,6 +20,7 @@ db.connect();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
