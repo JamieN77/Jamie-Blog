@@ -11,12 +11,14 @@ const Sidebar = () => {
                 <img
                   loading="lazy"
                   decoding="async"
-                  src="/images/i2.jpg"
+                  src="http://localhost:4000/images/i2.jpg"
                   alt="About Me"
                   className="w-100 author-thumb-sm d-block"
                 />
-                <h2 className="widget-title my-3">Jamie Nagy</h2>
-                <p className="mb-3 pb-2">This person doesn't have any bio.</p>
+                <h2 className="widget-title title-text my-3">Jamie Nagy</h2>
+                <p className="mb-3 pb-2 content-text">
+                  This person doesn't have any bio.
+                </p>
                 <button className="btn btn-sm btn-outline-primary devButton">
                   Profile
                 </button>

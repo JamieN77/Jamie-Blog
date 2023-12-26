@@ -40,6 +40,26 @@ const options = { day: "2-digit", month: "short", year: "numeric" };
 app.use(express.static("public"));
 app.use("/userimg", express.static("userimg"));
 
+// const formattedDate = (date) => {
+//   const d = new Date(date);
+//   const pad = (n) => (n < 10 ? "0" + n : n);
+//   return (
+//     pad(d.getMonth() + 1) +
+//     "/" +
+//     pad(
+//       d.getDate() +
+//         "/" +
+//         d.getFullYear() +
+//         " " +
+//         pad(d.getHours()) +
+//         ":" +
+//         pad(d.getMinutes()) +
+//         ":" +
+//         pad(d.getSeconds())
+//     )
+//   );
+// };
+
 // API routes
 // Example: Get all posts
 app.get("/posts", async (req, res) => {

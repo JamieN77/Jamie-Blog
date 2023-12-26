@@ -11,9 +11,7 @@ const MainContent = () => {
             <div className="breadcrumbs mb-5">
               {/* Breadcrumbs go here but I don't have them now*/}
             </div>
-            <h1 className="mb-4 border-bottom border-primary d-inline-block mb-5">
-              Your blogs
-            </h1>
+            <h1 className="mb-4 d-inline-block mb-5 title-text">Your blogs</h1>
           </div>
           <div className="col-lg-8 mb-5 mb-lg-0">
             <div className="rows">
