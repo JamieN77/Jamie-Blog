@@ -1,5 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../style/post.css";
+
+function formatDate(dateString, timeZoneOffset) {
+  // Parse the date string into a Date object
+  let date = new Date(dateString);
+
+  // Adjust for the time zone (UTC-5)
+  date.setMinutes(date.getMinutes() + timeZoneOffset);
+
+  // Extract the components of the date
+  let month = date.getUTCMonth() + 1; // getUTCMonth() returns 0-11
+  let day = date.getUTCDate();
+  let year = date.getUTCFullYear().toString(); // get last two digits of year
+  let hours = date.getUTCHours();
+  let minutes = date.getUTCMinutes();
+  let seconds = date.getUTCSeconds();
+  let ampm = hours >= 12 ? "PM" : "AM";
+
+  // Convert hours to 12-hour format
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+
+  // Pad the month, day, hours, minutes, and seconds with leading zeros if necessary
+  month = month < 10 ? "0" + month : month;
+  day = day < 10 ? "0" + day : day;
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  // Format the date string
+  return `${month}/${day}/${year} ${hours}:${minutes}:${seconds} ${ampm}`;
+}
 
 const Post = ({ post, onDelete }) => {
   const handleDelete = async () => {
@@ -21,36 +53,6 @@ const Post = ({ post, onDelete }) => {
 
   // Function to convert ISO date string to "MM/DD/YYYY HH:mm:ss" format
   let timeZoneOffset = -5 * 60;
-  function formatDate(dateString, timeZoneOffset) {
-    // Parse the date string into a Date object
-    let date = new Date(dateString);
-
-    // Adjust for the time zone (UTC-5)
-    date.setMinutes(date.getMinutes() + timeZoneOffset);
-
-    // Extract the components of the date
-    let month = date.getUTCMonth() + 1; // getUTCMonth() returns 0-11
-    let day = date.getUTCDate();
-    let year = date.getUTCFullYear().toString(); // get last two digits of year
-    let hours = date.getUTCHours();
-    let minutes = date.getUTCMinutes();
-    let seconds = date.getUTCSeconds();
-    let ampm = hours >= 12 ? "PM" : "AM";
-
-    // Convert hours to 12-hour format
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-
-    // Pad the month, day, hours, minutes, and seconds with leading zeros if necessary
-    month = month < 10 ? "0" + month : month;
-    day = day < 10 ? "0" + day : day;
-    hours = hours < 10 ? "0" + hours : hours;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-    // Format the date string
-    return `${month}/${day}/${year} ${hours}:${minutes}:${seconds} ${ampm}`;
-  }
 
   return (
     <div className="col-md-6 mb-4 post">
@@ -86,7 +88,10 @@ const Post = ({ post, onDelete }) => {
               : post.content}
           </p>
           <div className="edit-link">
-            <a className="read-more-btn" href={`/edit/${post.id}`}>
+            <a
+              className="read-more-btn btn btn-primary"
+              href={`/edit/${post.id}`}
+            >
               Edit
             </a>
             <button
@@ -104,3 +109,4 @@ const Post = ({ post, onDelete }) => {
 };
 
 export default Post;
+export { formatDate };

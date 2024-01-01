@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 const MainContent = () => {
   return (
     <section className="section">
-      <div className="container">
+      <div className="container" id="main-screen">
         <div className="row">
           <div className="col-12">
             <div className="breadcrumbs mb-5">

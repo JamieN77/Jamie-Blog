@@ -4,6 +4,7 @@ import multer from "multer";
 import path from "path";
 import pg from "pg";
 import cors from "cors";
+import moment from "moment";
 
 const app = express();
 const port = 4000;
@@ -35,36 +36,31 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-const options = { day: "2-digit", month: "short", year: "numeric" };
 
 app.use(express.static("public"));
 app.use("/userimg", express.static("userimg"));
 
-// const formattedDate = (date) => {
-//   const d = new Date(date);
-//   const pad = (n) => (n < 10 ? "0" + n : n);
-//   return (
-//     pad(d.getMonth() + 1) +
-//     "/" +
-//     pad(
-//       d.getDate() +
-//         "/" +
-//         d.getFullYear() +
-//         " " +
-//         pad(d.getHours()) +
-//         ":" +
-//         pad(d.getMinutes()) +
-//         ":" +
-//         pad(d.getSeconds())
-//     )
-//   );
-// };
-
 // API routes
 // Example: Get all posts
 app.get("/posts", async (req, res) => {
+  // Extract sort and order parameters from the query string
+  // and provide default valus if they're not specified
+  const sort = req.query.sort || "date";
+  const order = req.query.order || "DESC";
+
+  // Validate the sort and order to protect against SQL injection
+  const validSortColumns = ["date", "id"];
+  const validOrders = ["ASC", "DESC"];
+  if (!validSortColumns.includes(sort) || !validOrders.includes(order)) {
+    return res
+      .status(400)
+      .json({ message: "Invalid sort or order parameter." });
+  }
+
+  const sqlQuery = `SELECT * FROM posts ORDER BY ${sort} ${order}`;
+
   try {
-    const result = await db.query("SELECT * FROM posts");
+    const result = await db.query(sqlQuery);
     res.json(result.rows);
   } catch (err) {
     console.error("Error executing query", err.stack);
@@ -93,7 +89,8 @@ app.get("/posts/:id", async (req, res) => {
 // Example: Create a new post
 app.post("/posts", upload.single("image"), async (req, res) => {
   const date = new Date();
-  const formattedDate = date.toLocaleDateString("en-GB", options);
+  const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
+  console.log(formattedDate);
   let imagePath = req.file
     ? req.file.path.replace(/\\/g, "/")
     : "/images/i1.jpg";
@@ -114,20 +111,25 @@ app.put("/posts/:id", upload.single("image"), async (req, res) => {
   const postId = req.params.id;
   const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : null;
   const date = new Date();
-  const formattedDate = date.toLocaleDateString("en-GB", options);
+  const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
 
   try {
-    const updateQuery = {
-      text:
-        "UPDATE posts SET title = $1, content = $2, date = $3" +
-        (imagePath ? ", imagePath = $4" : "") +
-        " WHERE id = $5 RETURNING *",
-      values: imagePath
-        ? [req.body.title, req.body.content, formattedDate, imagePath, postId]
-        : [req.body.title, req.body.content, formattedDate, postId],
-    };
+    const updateValues = [
+      req.body.title,
+      req.body.content,
+      formattedDate,
+      postId,
+    ];
+    let updateQueryText =
+      "UPDATE posts SET title = $1, content = $2, date = $3 WHERE id = $4 RETURNING *";
 
-    const updatedPost = await db.query(updateQuery);
+    if (imagePath) {
+      updateQueryText =
+        "UPDATE posts SET title = $1, content = $2, date = $3, imagePath = $4 WHERE id = $5 RETURNING *";
+      updateValues.splice(3, 0, imagePath); // Insert imagePath at the right position
+    }
+
+    const updatedPost = await db.query(updateQueryText, updateValues);
     if (updatedPost.rows.length === 0) {
       return res.status(404).json({ message: "Post Not Found!" });
     }

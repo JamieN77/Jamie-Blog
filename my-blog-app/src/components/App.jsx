@@ -6,13 +6,15 @@ import CreatePost from "./CreatePost";
 import EditPost from "./EditPost";
 import Article from "./Article";
 import Contact from "./Contact";
+import Footer from "./Footer";
+import "../style/app.css";
 
 const App = () => {
   return (
     <Router>
       <div>
         <Header />
-        <div className="container">
+        <div className="container-top">
           <div className="row">
             <Routes>
               <Route path="/" element={<MainContent />} />
@@ -24,7 +26,7 @@ const App = () => {
             </Routes>
           </div>
         </div>
-        {/* Maybe include a Footer component here */}
+        <Footer />
       </div>
     </Router>
   );
