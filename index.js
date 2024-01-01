@@ -5,16 +5,18 @@ import path from "path";
 import pg from "pg";
 import cors from "cors";
 import moment from "moment";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT;
 
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "blogdb",
-  password: "2627897pppp",
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS,
+  port: process.env.DB_PORT,
 });
 
 db.connect();
