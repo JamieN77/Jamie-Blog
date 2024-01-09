@@ -7,6 +7,9 @@ import EditPost from "./EditPost";
 import Article from "./Article";
 import Contact from "./Contact";
 import Footer from "./Footer";
+import HomeContent from "./HomeContent";
+import Login from "./Login";
+import Register from "./Register";
 import "../style/app.css";
 
 const App = () => {
@@ -17,7 +20,10 @@ const App = () => {
         <div className="container-top">
           <div className="row">
             <Routes>
-              <Route path="/" element={<MainContent />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/" element={<HomeContent />} />
+              <Route path="/user" element={<MainContent />} />
               <Route path="/create" element={<CreatePost />} />
               <Route path="/article/:id" element={<Article />} />
               <Route path="/edit/:postId" element={<EditPost />} />

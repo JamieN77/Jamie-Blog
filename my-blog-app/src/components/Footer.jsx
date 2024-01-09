@@ -15,7 +15,7 @@ const Footer = () => {
     <footer className="section-sm pb-0 border-top border-default">
       <div className="container" id="footer-container">
         <div className="row justify-content-between">
-          <div className="col-md-3 mb-4">
+          <div className="col-md-3 mb-4" id="firstsec">
             <Link className="mb-1 d-block" to="/">
               <img
                 className="img-fluid"
@@ -52,16 +52,16 @@ const Footer = () => {
             <h6 className="link-title">Social Links</h6>
             <ul className="list-unstyled footer-list">
               <li className="list-item">
-                <a href="#">facebook</a>
+                <a href="google.com">facebook</a>
               </li>
               <li className="list-item">
-                <a href="#">twitter</a>
+                <a href="google.com">twitter</a>
               </li>
               <li className="list-item">
-                <a href="#">linkedin</a>
+                <a href="google.com">linkedin</a>
               </li>
               <li className="list-item">
-                <a href="#">github</a>
+                <a href="google.com">github</a>
               </li>
             </ul>
           </div>
@@ -89,7 +89,7 @@ const Footer = () => {
         </div>
 
         <div className="scroll-top">
-          <a href="" onClick={scrollToTop} id="scrollTop">
+          <a href="google.com" onClick={scrollToTop} id="scrollTop">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="21"
