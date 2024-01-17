@@ -1,10 +1,53 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "../style/sidebar.css";
 
 const Sidebar = () => {
+  const [user, setUser] = useState(null);
   const imageRef = useRef(null);
+  const navigate = useNavigate();
+
+  const [randomPosts, setRandomPosts] = useState([]);
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/check-auth", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+        } else {
+          console.error("Failed to fetch user data");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+
+    const fetchRandomPosts = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/posts/random", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setRandomPosts(data);
+        } else {
+          console.error("Failed to fetch random posts");
+        }
+      } catch (error) {
+        console.error("Error fetching random posts: ", error);
+      }
+    };
+
+    fetchRandomPosts();
+
     const updateImageHeight = () => {
       if (imageRef.current) {
         const width = imageRef.current.offsetWidth;
@@ -18,6 +61,18 @@ const Sidebar = () => {
     return () => window.removeEventListener("resize", updateImageHeight);
   }, []);
 
+  const handleProfileClick = () => {
+    navigate("/user/profile"); // Navigate to profile page
+  };
+
+  const navigateToArticle = (id) => {
+    navigate(`/article/${id}`);
+  };
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="col-lg-4">
       <div className="widget-blocks">
@@ -29,15 +84,20 @@ const Sidebar = () => {
                   ref={imageRef}
                   loading="lazy"
                   decoding="async"
-                  src="http://localhost:4000/images/i2.jpg"
-                  alt="About Me"
+                  src={`http://localhost:4000/${user.avatar_path}`}
+                  alt="User Avatar"
                   className="author-thumb-sm d-block"
                 />
-                <h2 className="widget-title title-text my-3">Jamie Nagy</h2>
+                <h2 className="widget-title title-text my-3">
+                  {user.display_name}
+                </h2>
                 <p className="mb-3 pb-2 content-text">
-                  This person doesn't have any bio.
+                  {user.bio || "This person doesn't have any bio."}
                 </p>
-                <button className="btn btn-sm btn-outline-primary devButton">
+                <button
+                  className="btn btn-sm btn-outline-primary devButton"
+                  onClick={handleProfileClick}
+                >
                   Profile
                 </button>
               </div>
@@ -48,84 +108,31 @@ const Sidebar = () => {
               <h2 className="section-title mb-3">Explore</h2>
               <div className="widget-body">
                 <div className="widget-list">
-                  <article className="card mb-4">
-                    <div className="card-image">
-                      <div className="post-info"></div>
-                      <img
-                        loading="lazy"
-                        decoding="async"
-                        src="./images/i2.jpg"
-                        alt="Post Thumbnail"
-                        className="w-100"
-                      />
-                    </div>
-                    <div className="card-body px-0 pb-1">
-                      <h3>
-                        Portugal and France Now Allow Unvaccinated Tourists
-                      </h3>
-                      <p className="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor …
-                      </p>
-                      <div className="fakebtn">
-                        <button className="btn btn-sm btn-outline-primary devButton">
-                          Read Full Article
-                        </button>
+                  {randomPosts.map((post) => (
+                    <article className="card mb-4" key={post.id}>
+                      <div className="card-image">
+                        <img
+                          loading="lazy"
+                          decoding="async"
+                          src={`http://localhost:4000/${post.imagepath}`}
+                          alt="Post Thumbnail"
+                          className="w-100"
+                        />
                       </div>
-                    </div>
-                  </article>
-                  <article className="card mb-4">
-                    <div className="card-image">
-                      <div className="post-info"></div>
-                      <img
-                        loading="lazy"
-                        decoding="async"
-                        src="./images/i2.jpg"
-                        alt="Post Thumbnail"
-                        className="w-100"
-                      />
-                    </div>
-                    <div className="card-body px-0 pb-1">
-                      <h3>
-                        Portugal and France Now Allow Unvaccinated Tourists
-                      </h3>
-                      <p className="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor …
-                      </p>
-                      <div className="fakebtn">
-                        <button className="btn btn-sm btn-outline-primary devButton">
-                          Read Full Article
-                        </button>
+                      <div className="card-body px-0 pb-1">
+                        <h3 className="explore-card-title">{post.title}</h3>
+                        <p className="explore-card-content">{post.content}</p>
+                        <div className="fakebtn">
+                          <button
+                            className="btn btn-sm btn-outline-primary devButton"
+                            onClick={() => navigateToArticle(post.id)}
+                          >
+                            Read Full Article
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </article>
-                  <article className="card mb-4">
-                    <div className="card-image">
-                      <div className="post-info"></div>
-                      <img
-                        loading="lazy"
-                        decoding="async"
-                        src="./images/i2.jpg"
-                        alt="Post Thumbnail"
-                        className="w-100"
-                      />
-                    </div>
-                    <div className="card-body px-0 pb-1">
-                      <h3>
-                        Portugal and France Now Allow Unvaccinated Tourists
-                      </h3>
-                      <p className="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor …
-                      </p>
-                      <div className="fakebtn">
-                        <button className="btn btn-sm btn-outline-primary devButton">
-                          Read Full Article
-                        </button>
-                      </div>
-                    </div>
-                  </article>
+                    </article>
+                  ))}
                 </div>
               </div>
             </div>

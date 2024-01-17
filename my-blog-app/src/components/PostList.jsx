@@ -14,7 +14,11 @@ const PostList = () => {
       try {
         const [sort, order] = sortOption.split(" ");
         const response = await fetch(
-          `http://localhost:4000/posts?sort=${sort}&order=${order}`
+          `http://localhost:4000/my/posts?sort=${sort}&order=${order}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch posts");

@@ -39,6 +39,7 @@ const Post = ({ post, onDelete }) => {
       try {
         const response = await fetch(`http://localhost:4000/posts/${post.id}`, {
           method: "DELETE",
+          credentials: "include",
         });
         if (!response.ok) {
           throw new Error("Error deleting post");
@@ -74,7 +75,7 @@ const Post = ({ post, onDelete }) => {
           </div>
         </Link>
         <div className="card-body px-0 pb-0">
-          <h2>
+          <h2 className="user-post-title">
             <Link
               className="post-title title-text"
               to={`http://localhost:4000/article/${post.id}`}
@@ -83,8 +84,8 @@ const Post = ({ post, onDelete }) => {
             </Link>
           </h2>
           <p className="card-text content-text">
-            {post.content.length > 100
-              ? post.content.substring(0, 100) + "..."
+            {post.content.length > 150
+              ? post.content.substring(0, 150) + "..."
               : post.content}
           </p>
           <div className="edit-link">

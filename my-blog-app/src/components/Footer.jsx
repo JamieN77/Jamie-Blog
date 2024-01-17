@@ -4,7 +4,8 @@ import "../style/footer.css";
 
 const Footer = () => {
   // Add any methods or state you need here
-  const scrollToTop = () => {
+  const scrollToTop = (event) => {
+    event.preventDefault();
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -89,7 +90,7 @@ const Footer = () => {
         </div>
 
         <div className="scroll-top">
-          <a href="google.com" onClick={scrollToTop} id="scrollTop">
+          <a href="/" onClick={scrollToTop} id="scrollTop">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="21"

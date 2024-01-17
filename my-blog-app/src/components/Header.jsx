@@ -1,17 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../style/header.css";
 
-const Header = () => {
+const Header = ({ user, refreshUser }) => {
   const [showSearch, setShowSearch] = useState(false);
+
   const navigate = useNavigate();
+
+  const truncateDisplayName = (name) => {
+    return name.length > 15 ? name.substring(0, 15) + "..." : name;
+  };
 
   const toggleSearch = () => setShowSearch(!showSearch);
 
-  const handleLogin = () => {
-    // Redirect to the backend
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/logout", {
+        method: "POST",
+        credentials: "include", // Needed for cookies to work
+      });
+      if (!response.ok) {
+        throw new Error("Logout failed");
+      }
+      refreshUser(); // Call to update the App's user state
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
+
+  useEffect(() => {
+    console.log("User in header:", user);
+  }, [user]);
 
   return (
     <header className="navigation">
@@ -31,13 +51,26 @@ const Header = () => {
             />
           </Link>
           <div className="navbar-actions order-3 ml-0 ml-md-4">
-            <button
-              className="login-btn"
-              aria-label="Login"
-              onClick={handleLogin}
-            >
-              Login
-            </button>
+            {user ? (
+              <>
+                <span className="header-welcome-message">
+                  Welcome, &nbsp;{truncateDisplayName(user.display_name)}
+                </span>
+                <button
+                  className="header-login-logout-btn"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <button
+                className="header-login-logout-btn"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </button>
+            )}
             <button
               aria-label="navbar toggler"
               className="navbar-toggler border-0"
@@ -81,7 +114,7 @@ const Header = () => {
           </div>
           <div
             className="collapse navbar-collapse text-center order-lg-2 order-4"
-            id="navigation"
+            id={user ? "navigation" : "notUsed"}
           >
             <ul className="navbar-nav mx-auto mt-3 mt-lg-0">
               <li className="nav-item">
@@ -94,11 +127,32 @@ const Header = () => {
                   Contact Me
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/create">
-                  Create Post
-                </Link>
-              </li>
+              {user && (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/user">
+                      My Space
+                    </Link>
+                  </li>
+                  <div className="create-post-center">
+                    <Link to="/create" className="create-post-btn">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60%"
+                        height="60%"
+                        fill="currentColor"
+                        class="bi bi-plus-lg"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
+                </>
+              )}
             </ul>
           </div>
         </nav>
