@@ -303,6 +303,76 @@ app.put("/user/profile/avatar", upload.single("avatar"), async (req, res) => {
   }
 });
 
+// HeroBanner daily info
+app.get("/herobanner/daily", async (req, res) => {
+  try {
+    // Fetch all records from herobanner table
+    const result = await db.query(
+      "SELECT id, image_path, topic FROM herobanner ORDER BY id"
+    );
+    const banners = result.rows;
+
+    if (banners.length === 0) {
+      return res.status(404).json({ message: "No hero banners found" });
+    }
+
+    // Calculate the index based on the current date
+    const today = moment().format("YYYY-MM-DD");
+    const startDate = moment("2024-01-01"); // Start Date
+    const daysSinceStart = moment(today).diff(startDate, "days");
+    const bannerIndex = daysSinceStart % banners.length;
+
+    // Return the hero banner for the current day
+    const currentBanner = banners[bannerIndex];
+    res.json({ ...currentBanner, date: today });
+  } catch (err) {
+    console.error("Error exeuting query", err.stack);
+    res.status(500).json({ message: "Error fetching daily hero banner." });
+  }
+});
+
+// Categories and tags
+app.get("/categories", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM categories");
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error executing query", err.stack);
+    res.status(500).json({ message: "Error fetching categories." });
+  }
+});
+
+app.get("/tags", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM tags");
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error executing query", err.stack);
+    res.status(500).json({ message: "Error fetching tags." });
+  }
+});
+
+// Route to get user avatar image_path
+app.get("/user/avatar/:userId", async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const result = await db.query(
+      "SELECT avatar_path FROM users WHERE id = $1",
+      [userId]
+    );
+    if (result.rows.length > 0) {
+      const avatarPath = result.rows[0].avatar_path;
+      res.json({ avatarPath });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (err) {
+    console.error("Error executing query", err.stack);
+    res.status(500).json({ message: "Error retrieving user avatar." });
+  }
+});
+
 // Get all posts
 app.get("/posts", async (req, res) => {
   // Extract sort and order parameters from the query string
@@ -319,7 +389,18 @@ app.get("/posts", async (req, res) => {
       .json({ message: "Invalid sort or order parameter." });
   }
 
-  const sqlQuery = `SELECT * FROM posts ORDER BY ${sort} ${order}`;
+  const sqlQuery = `
+    SELECT p.*, u.display_name, 
+           array_agg(DISTINCT c.name) AS categories, 
+           array_agg(DISTINCT t.name) AS tags
+    FROM posts p
+    JOIN users u ON p.user_id = u.id
+    LEFT JOIN post_categories pc ON p.id = pc.post_id
+    LEFT JOIN categories c ON pc.category_id = c.id
+    LEFT JOIN post_tags pt ON p.id = pt.post_id
+    LEFT JOIN tags t ON pt.tag_id = t.id
+    GROUP BY p.id, u.display_name
+    ORDER BY p.${sort} ${order}`;
 
   try {
     const result = await db.query(sqlQuery);
@@ -353,7 +434,19 @@ app.get("/my/posts", async (req, res) => {
       .json({ message: "Invalid sort or order parameter." });
   }
 
-  const sqlQuery = `SELECT * FROM posts WHERE user_id = $1 ORDER BY ${sort} ${order}`;
+  const sqlQuery = `
+    SELECT p.*, u.display_name, 
+           array_agg(DISTINCT c.name) AS categories, 
+           array_agg(DISTINCT t.name) AS tags
+    FROM posts p
+    JOIN users u ON p.user_id = u.id
+    LEFT JOIN post_categories pc ON p.id = pc.post_id
+    LEFT JOIN categories c ON pc.category_id = c.id
+    LEFT JOIN post_tags pt ON p.id = pt.post_id
+    LEFT JOIN tags t ON pt.tag_id = t.id
+    WHERE p.user_id = $1 
+    GROUP BY p.id, u.display_name
+    ORDER BY p.${sort} ${order}`;
 
   try {
     const result = await db.query(sqlQuery, [userId]);
@@ -364,12 +457,26 @@ app.get("/my/posts", async (req, res) => {
   }
 });
 
-// Get 3 random post(for the user page "Explore" section)
+// Get n random posts
 app.get("/posts/random", async (req, res) => {
+  // Get the count from query parameters or default to 3
+  const count = parseInt(req.query.count) || 3;
+
+  const sqlQuery = `
+    SELECT p.*, u.display_name, 
+           array_agg(DISTINCT c.name) AS categories, 
+           array_agg(DISTINCT t.name) AS tags
+    FROM posts p
+    JOIN users u ON p.user_id = u.id
+    LEFT JOIN post_categories pc ON p.id = pc.post_id
+    LEFT JOIN categories c ON pc.category_id = c.id
+    LEFT JOIN post_tags pt ON p.id = pt.post_id
+    LEFT JOIN tags t ON pt.tag_id = t.id
+    GROUP BY p.id, u.display_name
+    ORDER BY RANDOM() LIMIT $1`;
+
   try {
-    const result = await db.query(
-      "SELECT * FROM posts ORDER BY RANDOM() LIMIT 3"
-    );
+    const result = await db.query(sqlQuery, [count]);
     res.json(result.rows);
   } catch (err) {
     console.error("Error executing query", err.stack);
@@ -381,9 +488,19 @@ app.get("/posts/random", async (req, res) => {
 app.get("/posts/:id", async (req, res) => {
   try {
     const postId = req.params.id;
-    const result = await db.query("SELECT * FROM posts WHERE id = $1", [
-      postId,
-    ]);
+    const sqlQuery = `
+    SELECT p.*, u.display_name, 
+           array_agg(DISTINCT c.name) AS categories, 
+           array_agg(DISTINCT t.name) AS tags
+    FROM posts p
+    JOIN users u ON p.user_id = u.id
+    LEFT JOIN post_categories pc ON p.id = pc.post_id
+    LEFT JOIN categories c ON pc.category_id = c.id
+    LEFT JOIN post_tags pt ON p.id = pt.post_id
+    LEFT JOIN tags t ON pt.tag_id = t.id
+    WHERE p.id = $1
+    GROUP BY p.id, u.display_name`;
+    const result = await db.query(sqlQuery, [postId]);
     if (result.rows.length > 0) {
       res.json(result.rows[0]);
     } else {
@@ -401,9 +518,10 @@ app.post("/posts", upload.single("image"), async (req, res) => {
     return res.status(401).json({ message: "User not authenticated" });
   }
 
-  const date = new Date();
-  const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
-  console.log(formattedDate);
+  const { title, content } = req.body;
+  const categories = JSON.parse(req.body.categories || "[]"); // Parse the JSON string
+  const tags = JSON.parse(req.body.tags || "[]"); // Parse the JSON string
+  const date = moment().format("YYYY-MM-DD HH:mm:ss");
   let imagePath = req.file
     ? req.file.path.replace(/\\/g, "/")
     : "/images/i1.jpg";
@@ -411,12 +529,49 @@ app.post("/posts", upload.single("image"), async (req, res) => {
   // Retrieve the user's ID from the session
   const userId = req.user.id;
   try {
-    const newPost = await db.query(
-      "INSERT INTO posts (title, content, date, imagePath, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [req.body.title, req.body.content, formattedDate, imagePath, userId]
-    );
-    res.status(201).json(newPost.rows[0]);
+    // Begin a transaction
+    await db.query("BEGIN");
+
+    // Insert the new post into the posts table
+    const newPostQuery = `
+      INSERT INTO posts (title, content, date, imagePath, user_id)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING id`; // Returning the new post ID for further use
+    const newPostResult = await db.query(newPostQuery, [
+      title,
+      content,
+      date,
+      imagePath,
+      userId,
+    ]);
+    const newPostId = newPostResult.rows[0].id;
+
+    // Insert categories and tags if provided
+    if (categories) {
+      for (const category of categories) {
+        const insertCategoryQuery = `
+          INSERT INTO post_categories (post_id, category_id)
+          SELECT $1, id FROM categories WHERE name = $2`;
+        await db.query(insertCategoryQuery, [newPostId, category]);
+      }
+    }
+
+    if (tags) {
+      for (const tag of tags) {
+        const insertTagQuery = `
+          INSERT INTO post_tags (post_id, tag_id)
+          SELECT $1, id FROM tags WHERE name = $2`;
+        await db.query(insertTagQuery, [newPostId, tag]);
+      }
+    }
+
+    // Commit the transaction
+    await db.query("COMMIT");
+
+    res.status(201).json(newPostResult.rows[0]);
   } catch (err) {
+    // If an error occurs, rollback the transaction
+    await db.query("ROLLBACK");
     console.error("Error executing query", err.stack);
     res.status(500).json({ message: "Error creating new post." });
   }
@@ -426,62 +581,70 @@ app.post("/posts", upload.single("image"), async (req, res) => {
 app.put("/posts/:id", upload.single("image"), async (req, res) => {
   const postId = req.params.id;
   const userId = req.user?.id; // Get the authenticated user's ID
+  const { title, content } = req.body;
+  const categories = JSON.parse(req.body.categories || "[]"); // Parse the JSON string
+  const tags = JSON.parse(req.body.tags || "[]"); // Parse the JSON string
 
   // Check if the user is authenticated
   if (!userId) {
     return res.status(401).json({ message: "Not authenticated" });
   }
-  const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : null;
-  const date = new Date();
-  const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
 
   try {
-    const currentPostResult = await db.query(
-      "SELECT * FROM posts WHERE id = $1",
-      [postId]
-    );
-    if (currentPostResult.rows.length === 0) {
-      return res.status(404).json({ message: "Post Not Found!" });
-    }
+    // Begin a transaction
+    await db.query("BEGIN");
 
-    const currentPost = currentPostResult.rows[0];
+    // Update the post
+    const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : null;
+    const date = moment().format("YYYY-MM-DD HH:mm:ss");
 
-    // Check if the post belongs to the authenticated user
-    if (currentPost.user_id !== userId) {
-      return res
-        .status(403)
-        .json({ message: "Unauthorized to update this post" });
-    }
-
-    if (req.file) {
-      // Delete the old image file
-      const oldImagePath = currentPost.imagepath;
-      if (fs.existsSync(oldImagePath)) {
-        fs.unlinkSync(oldImagePath);
-      }
-    }
-    const updateValues = [
-      req.body.title,
-      req.body.content,
-      formattedDate,
-      postId,
-    ];
-    let updateQueryText =
-      "UPDATE posts SET title = $1, content = $2, date = $3 WHERE id = $4 RETURNING *";
+    let updatePostQuery = `
+      UPDATE posts SET title = $1, content = $2, date = $3 WHERE id = $4 RETURNING *`;
+    let queryParams = [title, content, date, postId];
 
     if (imagePath) {
-      updateQueryText =
-        "UPDATE posts SET title = $1, content = $2, date = $3, imagepath = $4 WHERE id = $5 RETURNING *";
-      updateValues.splice(3, 0, imagePath); // Insert imagePath at the right position
+      updatePostQuery = `
+        UPDATE posts SET title = $1, content = $2, date = $3, imagepath = $4 WHERE id = $5 RETURNING *`;
+      queryParams.splice(3, 0, imagePath);
     }
 
-    const updatedPost = await db.query(updateQueryText, updateValues);
-    res.json(updatedPost.rows[0]);
+    const updatedPostResult = await db.query(updatePostQuery, queryParams);
+
+    // Update categories and tags
+    // Remove existing categories and tags
+    await db.query("DELETE FROM post_categories WHERE post_id = $1", [postId]);
+    await db.query("DELETE FROM post_tags WHERE post_id = $1", [postId]);
+
+    // Add new categories and tags
+    if (categories) {
+      for (const category of categories) {
+        await db.query(
+          `INSERT INTO post_categories (post_id, category_id)
+           SELECT $1, id FROM categories WHERE name = $2`,
+          [postId, category]
+        );
+      }
+    }
+
+    if (tags) {
+      for (const tag of tags) {
+        await db.query(
+          `INSERT INTO post_tags (post_id, tag_id)
+           SELECT $1, id FROM tags WHERE name = $2`,
+          [postId, tag]
+        );
+      }
+    }
+
+    // Commit the transaction
+    await db.query("COMMIT");
+
+    res.json(updatedPostResult.rows[0]);
   } catch (err) {
-    console.error("Error executing query", err.stack);
-    res
-      .status(500)
-      .json({ message: "Error updating post.", error: err.message });
+    // Rollback the transaction on error
+    await db.query("ROLLBACK");
+    console.error("Error during post update transaction", err.stack);
+    res.status(500).json({ message: "Error updating post." });
   }
 });
 
@@ -497,28 +660,34 @@ app.delete("/posts/:id", async (req, res) => {
     }
 
     // Ensure the post belongs to the user
-    const postCheck = await db.query("SELECT * FROM posts WHERE id = $1", [
-      postId,
-    ]);
+    const postCheck = await db.query(
+      "SELECT * FROM posts WHERE id = $1 AND user_id = $2",
+      [postId, userId]
+    );
+
     if (postCheck.rowCount === 0) {
-      return res.status(404).json({ message: "Post Not Found!" });
-    }
-    if ((postCheck.rows[0], user_id !== userId)) {
       return res
-        .status(403)
-        .json({ message: "Unauthorized to delete this post." });
+        .status(404)
+        .json({ message: "Post Not Found or Unauthorized!" });
     }
 
+    // Begin a transaction
+    await db.query("BEGIN");
+
+    // Delete related categories and tags
+    await db.query("DELETE FROM post_categories WHERE post_id = $1", [postId]);
+    await db.query("DELETE FROM post_tags WHERE post_id = $1", [postId]);
+
     // Delete the post
-    const deleteQuery = await db.query(
-      "DELETE FROM posts WHERE id = $1 RETURNING *",
-      [postId]
-    );
-    if (deleteQuery.rowCount === 0) {
-      return res.status(404).json({ message: "Post Not Found!" });
-    }
+    await db.query("DELETE FROM posts WHERE id = $1", [postId]);
+
+    // Commit the transaction
+    await db.query("COMMIT");
+
     res.status(204).send();
   } catch (err) {
+    // If an error occurs, rollback the transaction
+    await db.query("ROLLBACK");
     console.error("Error executing query", err.stack);
     res.status(500).json({ message: "Error deleting post." });
   }

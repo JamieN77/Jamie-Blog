@@ -17,7 +17,7 @@ const Footer = () => {
       <div className="container" id="footer-container">
         <div className="row justify-content-between">
           <div className="col-md-3 mb-4" id="firstsec">
-            <Link className="mb-1 d-block" to="/">
+            <Link className="mb-1 d-block" id="footer-logo" to="/">
               <img
                 className="img-fluid"
                 width="150"
@@ -26,7 +26,7 @@ const Footer = () => {
               />
             </Link>
             <p>
-              Jamie Blog is a place where you can easily share your thoughts
+              StorySphere is a place where you can easily share your articles
               with our diverse members. Join us for a fun and open community!
             </p>
           </div>

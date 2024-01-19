@@ -31,10 +31,13 @@ const Sidebar = () => {
 
     const fetchRandomPosts = async () => {
       try {
-        const response = await fetch("http://localhost:4000/posts/random", {
-          method: "GET",
-          credentials: "include",
-        });
+        const response = await fetch(
+          "http://localhost:4000/posts/random?count=3",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           setRandomPosts(data);
@@ -47,6 +50,7 @@ const Sidebar = () => {
     };
 
     fetchRandomPosts();
+    const interval = setInterval(fetchRandomPosts, 7200000); // 2 hrs
 
     const updateImageHeight = () => {
       if (imageRef.current) {
@@ -58,7 +62,10 @@ const Sidebar = () => {
     updateImageHeight();
     window.addEventListener("resize", updateImageHeight);
 
-    return () => window.removeEventListener("resize", updateImageHeight);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("resize", updateImageHeight);
+    };
   }, []);
 
   const handleProfileClick = () => {

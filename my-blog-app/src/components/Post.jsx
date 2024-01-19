@@ -76,10 +76,7 @@ const Post = ({ post, onDelete }) => {
         </Link>
         <div className="card-body px-0 pb-0">
           <h2 className="user-post-title">
-            <Link
-              className="post-title title-text"
-              to={`http://localhost:4000/article/${post.id}`}
-            >
+            <Link className="post-title title-text" to={`/article/${post.id}`}>
               {post.title}
             </Link>
           </h2>
