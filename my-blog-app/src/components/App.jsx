@@ -11,6 +11,8 @@ import HomeContent from "./HomeContent";
 import Login from "./Login";
 import Register from "./Register";
 import Profile from "./Profile";
+import SearchResults from "./SearchResults";
+import Dev from "./Dev";
 import "../style/app.css";
 
 const App = () => {
@@ -85,6 +87,8 @@ const App = () => {
                 path="/login"
                 element={<Login refreshUser={refreshUser} />}
               />
+              <Route path="/dev" element={<Dev />} />
+              <Route path="/search" element={<SearchResults />} />
               <Route path="/create" element={<CreatePost />} />
               <Route path="/edit/:postId" element={<EditPost />} />
               <Route path="/register" element={<Register />} />

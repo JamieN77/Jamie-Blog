@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaHeart, FaHeartBroken } from "react-icons/fa"; // Import heart icons
 import "../style/post.css";
 
 function formatDate(dateString, timeZoneOffset) {
@@ -80,11 +81,19 @@ const Post = ({ post, onDelete }) => {
               {post.title}
             </Link>
           </h2>
-          <p className="card-text content-text">
+          <p className="card-text content-text" id="my-post-card-text">
             {post.content.length > 150
               ? post.content.substring(0, 150) + "..."
               : post.content}
           </p>
+          <div className="popular-point-section">
+            {post.popular_point > 0 ? (
+              <FaHeart className="popular-point-heart" />
+            ) : (
+              <FaHeartBroken className="popular-point-broken-heart" />
+            )}
+            <span className="popular-point-value">{post.popular_point}</span>
+          </div>
           <div className="edit-link">
             <a
               className="read-more-btn btn btn-primary"

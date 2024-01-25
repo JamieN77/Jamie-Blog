@@ -13,6 +13,15 @@ const Header = ({ user, refreshUser }) => {
 
   const toggleSearch = () => setShowSearch(!showSearch);
 
+  const handleSearchSubmit = async (event) => {
+    event.preventDefault();
+    const searchQuery = event.target.elements["search-query"].value.trim();
+    if (searchQuery) {
+      // Use navigate to change the URL to my search results page
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   const handleLogout = async () => {
     try {
       const response = await fetch("http://localhost:4000/logout", {
@@ -100,7 +109,11 @@ const Header = ({ user, refreshUser }) => {
 
           <div className={`search-dropdown ${showSearch ? "show-search" : ""}`}>
             <div className="search-dropdown-inner">
-              <form action="#!" className="search-form">
+              <form
+                onSubmit={handleSearchSubmit}
+                className="search-form"
+                action="#!"
+              >
                 <input
                   id="search-query"
                   name="s"

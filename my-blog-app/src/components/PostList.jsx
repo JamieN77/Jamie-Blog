@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Post from "./Post";
 import "../style/postList.css";
 
@@ -9,6 +9,8 @@ const PostList = () => {
     localStorage.getItem("sortOption") || "date DESC"
   );
   const postsPerPage = 6;
+
+  const paginationRef = useRef(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -32,7 +34,19 @@ const PostList = () => {
     };
 
     fetchPosts();
-  }, [sortOption]);
+  }, [currentPage, sortOption]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (paginationRef.current) {
+        const paginationPosition =
+          paginationRef.current.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: paginationPosition, behavior: "smooth" });
+      }
+    }, 0);
+
+    return () => clearTimeout(timer); // Clear the timeout if the component unmounts
+  }, [currentPage]);
 
   const handleDeletePost = (id) => {
     const updatedPosts = posts.filter((post) => post.id !== id);
@@ -50,7 +64,9 @@ const PostList = () => {
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="container">
@@ -68,62 +84,88 @@ const PostList = () => {
           <Post key={post.id} post={post} onDelete={handleDeletePost} />
         ))}
       </div>
-      <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={posts.length}
-        paginate={paginate}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <div ref={paginationRef}>
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={posts.length}
+          paginate={paginate}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
     </div>
   );
 };
 
-const Pagination = ({
-  postsPerPage,
-  totalPosts,
-  paginate,
-  currentPage,
-  setCurrentPage, // Make sure to receive setCurrentPage as a prop
-}) => {
+const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i);
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+  pageNumbers.push(1);
+  if (totalPages > 1) {
+    pageNumbers.push(2);
   }
 
-  const lastPage = pageNumbers.length;
+  if (totalPages > 4) {
+    if (currentPage > 3) {
+      pageNumbers.push("...");
+    }
+    const startMiddle = Math.max(currentPage - 1, 3);
+    const endMiddle = Math.min(currentPage + 1, totalPages - 2);
 
-  const goToPrevPage = () => {
-    setCurrentPage(currentPage - 1);
-  };
+    for (let i = startMiddle; i <= endMiddle; i++) {
+      if (!pageNumbers.includes(i)) {
+        pageNumbers.push(i);
+      }
+    }
 
-  const goToNextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
+    if (currentPage < totalPages - 2) {
+      pageNumbers.push("...");
+    }
+  }
+
+  if (totalPages > 3) {
+    pageNumbers.push(totalPages - 1);
+  }
+  if (totalPages > 2) {
+    pageNumbers.push(totalPages);
+  }
 
   return (
     <nav>
       <ul className="pagination">
         {currentPage > 1 && (
           <li className="page-item">
-            <button onClick={goToPrevPage} className="page-link">
+            <button
+              onClick={() => paginate(Math.max(currentPage - 1, 1))}
+              className="page-link"
+            >
               &laquo; Previous
             </button>
           </li>
         )}
-        {pageNumbers.map((number) => (
-          <li
-            key={number}
-            className={`page-item ${currentPage === number ? "active" : ""}`}
-          >
-            <button onClick={() => paginate(number)} className="page-link">
-              {number}
-            </button>
-          </li>
-        ))}
-        {currentPage < lastPage && (
+        {pageNumbers.map((number, index) =>
+          number === "..." ? (
+            <li key={number + index} className="page-item disabled">
+              <span className="page-link">{number}</span>
+            </li>
+          ) : (
+            <li
+              key={number}
+              className={`page-item ${currentPage === number ? "active" : ""}`}
+            >
+              <button onClick={() => paginate(number)} className="page-link">
+                {number}
+              </button>
+            </li>
+          )
+        )}
+        {currentPage < totalPages && (
           <li className="page-item">
-            <button onClick={goToNextPage} className="page-link">
+            <button
+              onClick={() => paginate(Math.min(currentPage + 1, totalPages))}
+              className="page-link"
+            >
               Next &raquo;
             </button>
           </li>

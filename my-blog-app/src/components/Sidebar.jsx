@@ -117,7 +117,7 @@ const Sidebar = () => {
                 <div className="widget-list">
                   {randomPosts.map((post) => (
                     <article className="card mb-4" key={post.id}>
-                      <div className="card-image">
+                      <div className="card-image" id="sidebar-card-image">
                         <img
                           loading="lazy"
                           decoding="async"
