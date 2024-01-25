@@ -1,0 +1,136 @@
+
+.post-image {
+    height: 350px;
+    /* Set the desired height here */
+    overflow: hidden;
+}
+
+/* This CSS targets the image itself */
+.post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* This will cover the area, cropping the image as needed */
+    transition: transform 0.3s ease-in-out;
+    border-radius: 3.5%;
+}
+
+article .list-inline .list-inline-item,
+article .list-inline .list-inline-item p {
+    font-size: 12px;
+}
+
+article .list-inline .list-inline-item svg {
+    margin-right: 7px;
+}
+
+article .list-inline .list-inline-item .home-post-author {
+    text-decoration: none;
+    border-bottom: 1px dotted #ddd;
+}
+
+
+/* Button style */
+.main-pg-post-btn {
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    text-transform: capitalize;
+    padding: 8px 25px;
+    border-radius: 50px;
+    border: 1px solid;
+    position: relative;
+    z-index: 1;
+    transition: 0.2s ease;
+}
+
+.main-pg-post-btn:hover,
+.main-pg-post-btn:active,
+.main-pg-post-btn:focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+
+.btn-primary {
+    background: #ce8460;
+    color: #fff;
+    border-color: #ce8460;
+}
+
+.btn-primary:active,
+.btn-primary:hover,
+.btn-primary.focus,
+.btn-primary.active {
+    background: #ce8460 !important;
+    border-color: #ce8460 !important;
+}
+
+.main-pg-post-btn {
+    background: transparent;
+    color: #696c6d;
+    border-color: #ce8460;
+    text-decoration: none;
+}
+
+.main-pg-post-btn:active,
+.main-pg-post-btn:hover,
+.main-pg-post-btn.focus,
+.main-pg-post-btn.active {
+    background: #ce8460 !important;
+    border-color: #ce8460 !important;
+    color: #fff;
+}
+
+.btn-outline-light {
+    background: transparent;
+    color: #696c6d;
+    border-color: #ddd;
+}
+
+.btn-outline-light:active,
+.btn-outline-light:hover,
+.btn-outline-light.focus,
+.btn-outline-light.active {
+    background: #f0f0f0 !important;
+    border-color: #ddd !important;
+}
+
+.home-post-actual-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1rem;
+    /* Adjust as needed */
+    line-height: 1.5rem;
+    /* Adjust line height as needed */
+    height: 6rem;
+    /* This should be approximately line-height multiplied by the number of lines */
+}
+
+.list-inline.post-meta {
+    margin-bottom: 0 !important;
+}
+.popular-point-section {
+    display: inline-block;
+}
+
+.popular-point-heart,
+.popular-point-broken-heart {
+    margin-right: 5px;
+}
+
+.popular-point-heart {
+    color: pink;
+    /* Adjust color as needed */
+}
+
+.popular-point-broken-heart {
+    color: black;
+    /* Adjust color as needed */
+}
+
+.popular-point-value {
+    font-weight: bold;
+}
+

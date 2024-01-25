@@ -1,0 +1,39 @@
+.widget-search {
+    position: relative;
+}
+
+.widget-search input {
+    border: 0;
+    border-bottom: 1px dotted #ddd;
+    width: 100%;
+    height: 40px;
+}
+
+.widget-search input:focus {
+    outline: 0;
+}
+
+.widget-search input::-moz-placeholder {
+    font-size: 90%;
+}
+
+.widget-search input::placeholder {
+    font-size: 90%;
+}
+
+.widget-search button {
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    display: inline-block;
+    padding: 0;
+    background: #f0f0f0;
+    color: #656c7a;
+    text-align: center;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    border: 0;
+    font-size: 12px;
+}

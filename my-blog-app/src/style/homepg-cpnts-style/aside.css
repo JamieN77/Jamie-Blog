@@ -1,0 +1,26 @@
+.aside-widget {
+    background: #fff;
+    margin-bottom: 40px;
+}
+
+.aside-widget-title {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.aside-widget-title span {
+    background: #fff;
+    position: relative;
+    padding-right: 5px;
+    z-index: 1;
+}
+
+.aside-widget-title::before {
+    position: absolute;
+    content: "";
+    right: 0;
+    height: 1px;
+    width: 100%;
+    background: #ddd;
+    top: 50%;
+}

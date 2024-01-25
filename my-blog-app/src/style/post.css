@@ -1,0 +1,194 @@
+.card {
+    border: 0;
+    margin-bottom: 0px;
+    /* Space between cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Soft shadow like in the sample */
+    border-radius: 10px;
+    /* Rounded corners */
+    overflow: hidden;
+    padding: 10px;
+    /* Ensures that children do not overflow */
+}
+
+.post {
+    padding-right: 20px;
+}
+
+.article-card {
+    display: flex;
+    flex-direction: column;
+    /* Stack children vertically */
+    height: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.card-image {
+    position: relative;
+}
+
+.post-info {
+    position: absolute;
+    top: 10px;
+    /* Adjusted for space from the top of the image */
+    left: 10px;
+    /* Space from the left side of the image */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Slightly more opacity */
+    font-size: 0.75rem;
+    /* Smaller font size for time */
+    padding: 5px 10px;
+    /* Smaller padding for a more delicate look */
+    border-radius: 5px;
+    /* Rounded corners for the date/time background */
+    color: #333;
+    /* Color for date text */
+    margin-bottom: 10px;
+    /* Space between the time and the image */
+}
+
+.card-image img {
+    width: 100%;
+    /* Make image full width */
+    height: 280px !important;
+    /* Maintain aspect ratio */
+    display: block;
+    /* Remove extra space below image */
+    border-top-left-radius: 10px;
+    /* Rounded corners at the top of image */
+    border-top-right-radius: 10px;
+    padding: 3px;
+}
+
+.card-body {
+    padding: 20px;
+    /* Padding inside the card body */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* This will push the edit-link to the bottom */
+    height: calc(100% - 180px);
+}
+
+.post-title {
+    font-size: 1.5rem;
+    /* Larger size for title */
+    margin-top: 15px;
+    /* Space below image */
+    margin-bottom: 10px;
+    /* Space above description */
+    color: #333;
+    /* Title text color */
+    text-decoration: none;
+    line-height: 1.2;
+    /* No underline on title */
+}
+.user-post-title {
+    font-size: 1.5rem;
+}
+
+.content-text {
+    font-size: 1rem;
+    /* Adjust description font size */
+    color: #666;
+    /* Description text color */
+    display: -webkit-box;
+    -webkit-line-clamp: 5 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 7.5rem !important;
+    /* Assuming line-height is 1.5rem, 3 lines would be 4.5rem */
+    margin-bottom: 10px;
+    /* Adjust as needed */
+}
+
+.edit-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    /* Space between content and edit link */
+}
+
+/* read-more-btn is the edit button */
+.read-more-btn,
+.btn-danger {
+    text-transform: uppercase;
+    /* UPPERCASE text for buttons */
+    font-weight: bold;
+    /* Bold font weight for buttons */
+    text-decoration: none;
+    /* No underline */
+    padding: 10px 20px;
+    /* Padding inside buttons */
+    border: none;
+    /* Remove borders from buttons */
+    font-size: 0.85rem;
+    /* Font size for buttons */
+    border-radius: 20px;
+    /* More pronounced rounded corners for buttons */
+    transition: background-color 0.3s, transform 0.3s;
+    /* Transition for interactive states */
+}
+
+.read-more-btn {
+    background-color: #7BD3EA;
+    /* Bootstrap primary color for edit button */
+    color: #fff;
+    /* White text for edit button */
+    border: 2px solid transparent;
+    /* Prepare for hover effect */
+}
+
+.read-more-btn:hover,
+.btn-danger:hover {
+    transform: scale(1.05);
+    /* Slightly enlarge buttons on hover */
+    border: 2px solid #fff;
+    /* White border on hover */
+}
+
+.btn-danger {
+    background-color: #cc5252c8;
+    color: #fff;
+    /* White text for delete button */
+    margin-left: 10px;
+    /* Space between edit and delete buttons */
+}
+#my-post-card-text {
+    margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .article-card-sm {
+        padding: 15px;
+    }
+}
+
+/* For medium devices (tablets, 768px and up) */
+@media (max-width: 767px) {
+
+    .read-more-btn,
+    .btn-danger {
+        padding: .375rem .75rem;
+        /* Slightly smaller padding */
+        font-size: .875rem;
+        /* Slightly smaller font-size */
+    }
+}
+
+/* For small devices (phones, 576px and up) */
+@media (max-width: 575px) {
+
+    .read-more-btn,
+    .btn-danger {
+        padding: .25rem .5rem;
+        /* Even smaller padding */
+        font-size: .75rem;
+        /* Even smaller font-size */
+    }
+}

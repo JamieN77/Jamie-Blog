@@ -1,0 +1,93 @@
+.sort-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sort-options label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.sort-options select {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    background-color: white;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+    /* Spacing between page items */
+}
+
+.pagination .page-item.disabled .page-link,
+.pagination .page-item .page-link {
+    color: #6c757d;
+    /* Default text color */
+    background-color: #fff;
+    /* Default background color */
+    border: 1px solid #dee2e6;
+    /* Border color */
+    padding: 5px 10px;
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.pagination .page-item.active .page-link {
+    color: #fff;
+    /* Active item text color */
+    background-color: #117697;
+    /* Active item background color (can be changed) */
+    border-color: #2973a4;
+    /* Active item border color */
+}
+
+.pagination .page-item .page-link:hover {
+    color: #fff;
+    /* Hover text color */
+    background-color: #249db5db;
+    /* Hover background color */
+    border-color: #186493;
+    /* Hover border color */
+}
+
+/* Responsive adjustment for pagination */
+@media (max-width: 600px) {
+    .pagination .page-item .page-link {
+        padding: 3px 6px;
+        /* Smaller padding for small screens */
+        font-size: 14px;
+        /* Smaller font size for readability */
+    }
+}
+
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+    .sort-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sort-options label {
+        margin-bottom: 5px;
+    }
+}

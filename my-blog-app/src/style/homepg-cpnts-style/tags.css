@@ -1,0 +1,45 @@
+.widget-list-inline {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.widget-list-inline li {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.tag-btn {
+    background-color: #f8f9fa;
+    /* Light grey background */
+    border: 1px solid #e2e2e2;
+    /* Light grey border */
+    color: #696c6d;
+    /* Text color */
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    /* Change the cursor to signify it's clickable */
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    /* Smooth transition for 3D effect */
+}
+
+.tag-btn:hover {
+    background-color: rgba(137, 94, 99, 0.258);
+    /* Slightly darker background on hover */
+    text-decoration: none;
+    color: #696c6d;
+}
+
+.tag-btn.active {
+    transform: translateY(2px);
+    background-color: rgba(174, 78, 90, 0.525);
+    /* Push the button down on click */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Add shadow for 3D effect */
+}
+
+/* You can add more styles here if needed */

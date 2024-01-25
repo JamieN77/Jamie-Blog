@@ -1,0 +1,82 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 60%;
+    /* Set to the desired width, such as 60% */
+    max-width: 600px;
+    /* Maximum width of the modal */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    /* Space between children */
+}
+
+.modal-body>* {
+    /* ... existing styles ... */
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+    /* Smooth transition for click effect */
+    cursor: pointer;
+    /* Change cursor to pointer to indicate clickable items */
+}
+
+.modal-body>*:active {
+    transform: scale(0.95);
+    /* Slightly scale down the element when clicked */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    /* Add a subtle shadow for depth */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 80%;
+        /* Larger width on smaller screens */
+    }
+
+    .modal-body>* {
+        flex: 0 0 calc(50% - 20px);
+        /* Each child takes up half the width of the modal body, minus the gap */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-body>* {
+        flex: 0 0 100%;
+        /* Each child takes full width on very small screens */
+    }
+}

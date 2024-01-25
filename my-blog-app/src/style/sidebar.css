@@ -1,0 +1,197 @@
+.col-lg-4 {
+    padding: 15px;
+    padding-left: 30px;
+    padding-top: 0px;
+}
+
+.widget-blocks {    
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.widget {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.widget-title {
+    color: #333;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.widget-body {
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.author-thumb-sm {
+    width: 170px;
+    /* Set a fixed width */
+    height: 170px;
+    /* Ensure the height is the same as the width for a circle */
+    border-radius: 50%;
+    /* This will create a circle */
+    margin-bottom: 15px;
+    display: block;
+    /* Override the d-block if necessary */
+    margin-left: auto;
+    margin-right: auto;
+    /* These two ensure the image is centered within its container */
+    object-fit: cover;
+    /* This will make sure the image covers the area without stretching */
+    max-width: 100%;
+    /* This ensures the image is never larger than its container */
+    /* This maintains the aspect ratio */
+    
+}
+
+#profile {
+    padding-top: 0px;
+}
+
+.content-text {
+    color: #666;
+    font-size: 1em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 3.2em;
+    /* Adjust this value based on your line-height and font-size */
+    line-height: 1.6em;
+    /* Adjust line-height as needed */
+    text-overflow: ellipsis;
+}
+
+.devButton {
+    background-color: #2d9eaf;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.devButton:hover {
+    background-color: #126a73;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-image img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #eee;
+}
+
+#sidebar-card-image img {
+    height: 200px !important;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.explore-card-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    /* Number of lines you want to display */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.explore-card-content {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    /* Number of lines you want to display */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.fakebtn button {
+    width: 100%;
+    text-align: center;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 991px) {
+    .col-lg-4 {
+        width: 100%;
+        padding: 15px 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .widget-body {
+        padding: 10px;
+        /* Reduce padding for smaller screens */
+    }
+
+    .widget {
+        margin-bottom: 10px;
+        /* Adjust margins as needed */
+    }
+
+    .author-thumb-sm {
+        width: 140px;
+        /* Adjust the size as needed for smaller screens */
+        height: 140px;
+        /* Adjust the height to maintain the aspect ratio */
+    }
+}
+
+/* Adjust margins for smaller screens */
+@media (max-width: 1200px) {
+
+    /* Adjust this breakpoint as needed */
+    .mx-5 {
+        margin-right: 1.5rem !important;
+        margin-left: 1.5rem !important;
+    }
+}
+
+@media (max-width: 992px) {
+
+    /* Adjust this breakpoint as needed */
+    .mx-5 {
+        margin-right: 1rem !important;
+        margin-left: 1rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Adjust this breakpoint as needed */
+    .mx-5 {
+        margin-right: 0.5rem !important;
+        margin-left: 0.5rem !important;
+    }
+}

@@ -1,0 +1,91 @@
+.contact-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.sidebar {
+    flex: 1;
+    background-color: #f8f8f8;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-replacement img {
+    width: 100%;
+    /* Adjust as needed */
+    margin-bottom: 30px;
+    /* Same as your search bar */
+    border-radius: 4px;
+    /* Optional, for rounded corners */
+    left: -20px;
+}
+
+.categories h3,
+.related-articles h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.categories ul,
+.related-articles ul {
+    list-style: none;
+    padding: 0;
+}
+
+.categories ul li,
+.related-articles ul li,
+.related-articles ul li a{
+    margin-bottom: 10px;
+    padding: 5px 0;
+    color: #555 !important;
+    cursor: pointer;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+
+.categories ul li:hover,
+.related-articles ul li:hover {
+    color: #000;
+}
+
+.contact-main {
+    flex: 3;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.contact-method {
+    margin-bottom: 20px;
+}
+
+.contact-method h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.contact-method p {
+    color: #555;
+}
+
+.related-articles {
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        order: 2;
+        /* Put the sidebar below the main content on smaller screens */
+    }
+}

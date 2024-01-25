@@ -1,0 +1,58 @@
+.widget-post {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.widget-post img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.widget-post .media-body {
+    flex: 1;
+}
+
+.widget-post .media-body .h6 {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.widget-post .media-body a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.widget-post .media-body a:hover {
+    color: #007bff;
+}
+
+.widget-post small {
+    display: block;
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.widget-post-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+    /* Adjust as needed */
+    color: #333;
+    /* Your desired color */
+    text-decoration: none;
+    /* Removes underline */
+}
+
+.widget-post-title:hover {
+    color: #555;
+    /* Slightly darker color on hover */
+}

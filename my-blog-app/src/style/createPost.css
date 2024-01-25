@@ -1,0 +1,117 @@
+.create-post-container {
+    position: relative;
+    max-width: 600px;
+    width: 90%;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+.create-post-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.create-post-container form input[type="text"],
+.create-post-container form textarea {
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Arial', sans-serif;
+    background: #fff;
+}
+
+.create-post-container form textarea {
+    min-height: 250px;
+    resize: vertical;
+}
+.file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-upload-button {
+    padding: 0.8rem 1.5rem !important;
+    background-color: #876e339e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+.file-upload-button:hover {
+    background-color: #674a14;
+}
+
+.create-post-container form .create-post-submit {
+    padding: 1rem 2rem;
+    background-color: #008cba;
+    color: white;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.create-post-container form .create-post-submit:hover {
+    background-color: #0077a9;
+    transform: scale(1.02);
+}
+
+.create-post-container form input[type="text"]:focus,
+.create-post-container form textarea:focus {
+    outline: none;
+    border: 2px solid #4a90e2;
+    box-shadow: 0 0 5px #4a90e2;
+}
+
+/* Responsive Design */
+@media (min-width: 1200px) {
+
+    /* Large devices */
+    .create-post-container {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    /* Medium devices */
+    .create-post-container {
+        max-width: 550px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    /* Small devices */
+    .create-post-container {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+
+    /* Extra small devices */
+    .create-post-container {
+        max-width: 450px;
+    }
+}
+
+@media (max-width: 599px) {
+
+    /* Very small devices */
+    .create-post-container {
+        max-width: 100%;
+        padding: 1.5rem;
+    }
+}

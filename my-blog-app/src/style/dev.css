@@ -1,0 +1,21 @@
+.dev-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Full viewport height */
+    text-align: center;
+}
+
+.dev-container p {
+    font-size: 24px;
+    /* Adjust font size as needed */
+    font-family: Arial, sans-serif;
+    /* This is a clean and prosfessional typeface */
+}
+
+#dev-go-back-icon {
+    left: 20%;
+    top: 20%;
+}

@@ -1,0 +1,71 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    /* Added margin for spacing */
+    align-items: center;
+    /* Vertically center the items */
+    --bs-pagination-active-bg: #13d8d8c3;
+}
+
+.pagination li {
+    margin: 0 5px;
+    display: flex;
+    /* Ensure flex alignment */
+}
+
+.pagination li.active {
+    font-weight: bold;
+    background-color: #1bbf8ec3;
+    /* Active item background color */
+    color: white;
+    /* Active item text color */
+}
+
+.pagination li.active a {
+    color: white;
+    /* Active link text color */
+}
+
+.pagination a {
+    color: #55d8d8;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    /* Smooth transition for hover and active states */
+}
+
+.pagination a:hover,
+.pagination a:focus {
+    background-color: #17a6ce;
+    outline: none;
+    /* Remove focus outline */
+}
+
+/* Styling for the pagination container height */
+.pagination-container {
+    min-height: 50px;
+    /* Adjust height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination li.disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.pagination li.disabled a {
+    pointer-events: none;
+}
+
+.page-link svg {
+    vertical-align: middle;
+    margin-top: -2px;
+    /* Adjust alignment of icons */
+}

@@ -1,0 +1,132 @@
+.register-container {
+    position: relative;
+    max-width: 500px;
+    /* Increased width */
+    margin: 40px auto;
+    width: 100%;
+    /* More vertical margin */
+    padding: 40px;
+    /* Increased padding */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+    /* Added border-radius */
+}
+
+.register-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Increased gap */
+}
+
+input.login-email,
+input.login-password {
+    padding: 15px;
+    /* Increased padding */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    /* Increased font-size */
+    /* Max input length */
+}
+
+
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    /* Increased font-size */
+    margin-top: 10px;
+}
+
+.password-requirements {
+    margin-top: 20px;
+    /* Increased margin-top */
+}
+
+.password-requirements ul {
+    list-style: none;
+    padding: 0;
+}
+
+.password-requirements li {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    /* Increased font-size */
+    margin-bottom: 5px;
+    /* Added margin-bottom */
+}
+
+.password-requirements li.met {
+    color: green;
+}
+
+.password-requirements li.not-met {
+    color: red;
+}
+
+.password-requirements li::before {
+    content: "✓";
+    margin-right: 5px;
+}
+
+.password-requirements li.not-met::before {
+    content: "✕";
+}
+
+/* Responsive adjustments */
+@media (max-width: 520px) {
+    .register-container {
+        width: 90%;
+        padding: 30px;
+    }
+
+    input.login-email,
+    input.login-password {
+        font-size: 14px;
+    }
+
+    button.login-submit {
+        font-size: 16px;
+    }
+}
+
+/* Responsive adjustments for register-container */
+@media (max-width: 520px) {
+    .register-container {
+        width: 90%;
+        padding: 30px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .register-container {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .register-container {
+        max-width: 450px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .register-container {
+        max-width: 400px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+    .register-container {
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 599px) {
+    .register-container {
+        max-width: 300px;
+    }
+}

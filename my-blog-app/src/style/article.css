@@ -1,0 +1,106 @@
+.article-container {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+}
+
+.article-image {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+}
+
+.article-meta {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #777;
+    margin: 15px 0;
+    text-align: left;
+    display: block;
+}
+
+.article-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.article-content {
+    line-height: 1.7;
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 20px;
+    word-wrap: break-word;  /* This will break long unbroken strings of text */
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+    white-space: pre-wrap;
+    /* Adjust as needed */
+}
+
+.article-author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.default-avatar {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.article-tags-categories {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.article-categories,
+.article-tags {
+    background: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.endorsement-section {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.endorse-icon,
+.disendorse-icon {
+    cursor: pointer;
+    margin-right: 10px;
+    color: #777;
+}
+
+.endorse-icon.active {
+    color: pink;
+}
+
+.disendorse-icon.active {
+    color: black;
+}
+
+.popular-point {
+    font-size: 1.2rem;
+}

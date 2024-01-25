@@ -1,0 +1,135 @@
+.profile-container {
+  margin-top: 2rem;
+  position: relative;
+}
+
+.avatar-and-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    /* Aligns the button at the bottom of the image */
+    position: relative;
+}
+
+.profile-avatar-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+.profile-avatar {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.change-avatar-btn {
+    margin-left: -40px;
+    /* Half of the button's width to offset it to the left */
+    margin-bottom: 10px;
+    /* Adjust this value to place the button above the bottom edge of the avatar */
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    padding: 0.5rem;
+    background-color: #fff !important;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    z-index: 2;
+}
+.change-avatar-btn:hover {
+  background-color: #f0f0f0 !important;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* .change-avatar-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+} */
+
+.change-avatar-btn:active {
+    z-index: 10;
+}
+
+.profile-info {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-info h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile-info p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-info .btn-outline-secondary {
+  padding: 0.375rem 0.75rem;
+}
+
+#profile-edit-and-set-pswd {
+    display: flex;
+    justify-content: space-between;
+    min-width: 340px;
+}
+
+#profile-edit-and-set-pswd .btn-outline-secondary {
+    margin-right: 20%;
+}
+
+.profile-submit-pswd-btn {
+    margin-top: 10%;
+}
+
+@media (min-width: 768px) {
+    .profile-info {
+        align-items: flex-start;
+    }
+}
+
+/* If you have additional styles for buttons, inputs, etc., add them here. */
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .profile-avatar {
+        width: 180px;
+        height: 180px;
+    }
+
+    #profile-edit-and-set-pswd {
+        min-width: 250px;
+    }
+    
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .profile-avatar {
+        width: 150px;
+        height: 150px;
+    }
+    
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    #profile-edit-and-set-pswd {
+        min-width: 200px;
+    }
+    
+}

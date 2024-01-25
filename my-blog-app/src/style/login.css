@@ -1,0 +1,193 @@
+.login-container {
+    position: relative;
+    max-width: 500px;
+    /* Increased width */
+    margin: 40px auto;
+    width: 100%;
+    /* More vertical margin */
+    padding: 40px;
+    /* Increased padding */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+    /* Added border-radius */
+}
+
+.single-go-back-icon {
+    position: absolute;
+    top: -30px;
+    /* Adjust as needed */
+    left: -40px;
+    /* Adjust as needed */
+    font-size: 50px;
+    /* Adjust as needed */
+    cursor: pointer;
+    z-index: 10;
+    /* Ensure it's above other elements */
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Increased gap */
+}
+
+input.login-email,
+input.login-password {
+    padding: 15px;
+    /* Increased padding */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    /* Increased font-size */
+}
+
+button.login-submit,
+.google-login {
+    padding: 15px 20px;
+    /* Increased padding */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    /* Increased font-size */
+    margin-top: 0px;
+    /* Added margin-top */
+}
+
+button.login-submit:hover,
+.google-login:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    /* Increased font-size */
+    margin-top: 10px;
+}
+
+.google-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: #fff;
+    color: #757575;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+    text-decoration: none;
+    /* Remove underline from any text inside */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /* Added margin-top */
+}
+
+.google-login:hover {
+    background-color: #7a828fb4;
+    /* Google's brand color for hover */
+    color: #fff;
+    /* White text on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* Enhanced shadow on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect on hover */
+}
+
+.google-login:active {
+    transform: translateY(1px);
+    /* Slight push-down effect when clicked */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    /* Less shadow when clicked */
+}
+
+.google-login img {
+    width: 24px;
+    /* Increased size */
+    height: 24px;
+    /* Increased size */
+}
+
+/* Responsive adjustments */
+@media (max-width: 520px) {
+    .login-container {
+        width: 90%;
+        padding: 30px;
+    }
+
+    input.login-email,
+    input.login-password {
+        font-size: 14px;
+    }
+
+    button.login-submit,
+    .google-login {
+        font-size: 16px;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .login-container {
+        max-width: 500px;
+        /* Fixed max width for very large screens */
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .login-container {
+        max-width: 450px;
+        /* Slightly smaller for medium-large screens */
+    }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .login-container {
+        max-width: 400px;
+        /* Smaller for tablets */
+    }
+}
+
+/* Extra small devices (phones, 600px and up) */
+@media (min-width: 600px) and (max-width: 767px) {
+    .login-container {
+        max-width: 350px;
+        /* More narrow for small tablets and large phones */
+    }
+}
+
+/* Very small devices (small phones, less than 600px) */
+@media (max-width: 599px) {
+    .login-container {
+        max-width: 300px;
+        /* Narrowest for small phones */
+        padding: 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .single-go-back-icon {
+        top: -30px;
+        left: -30px;
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 599px) {
+    .single-go-back-icon {
+        top: -20px;
+        left: -20px;
+    }
+}

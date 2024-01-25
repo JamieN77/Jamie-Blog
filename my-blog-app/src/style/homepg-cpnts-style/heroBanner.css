@@ -1,0 +1,36 @@
+.hero-banner {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    height: 575px;
+    /* Set a fixed height for the HeroBanner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 30px;
+    /* Adjust the padding to suit your design */
+}
+
+.hero-banner__content h3 {
+    font-size: 1.7rem !important;
+    color: #fff !important;
+    /* Adjust font-size to suit your design */
+    margin-bottom: 10px;
+}
+
+.hero-banner__content h1 {
+    font-size: 3rem !important;
+    color: #fff !important;
+    /* Adjust font-size to suit your design */
+    margin-bottom: 20px;
+}
+
+.hero-banner__content h4 {
+    color: #fff !important;
+    font-size: 1rem !important;
+    /* Adjust font-size to suit your design */
+    font-weight: normal;
+}
