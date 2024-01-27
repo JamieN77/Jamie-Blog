@@ -1,7 +1,7 @@
 import React from "react";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import "../style/dev.css"; // Assuming you will create a Dev.css file for styling
+import "../style/dev.css";
 
 const Dev = () => {
   const navigate = useNavigate();

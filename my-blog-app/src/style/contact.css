@@ -40,7 +40,8 @@
 
 .categories ul li,
 .related-articles ul li,
-.related-articles ul li a{
+.related-articles ul li a,
+#contact-first-ul li a {
     margin-bottom: 10px;
     padding: 5px 0;
     color: #555 !important;

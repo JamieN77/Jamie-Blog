@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../style/contact.css"; // Assuming you will create a Contact.css file for styling
 
 const Contact = () => {
@@ -13,12 +14,22 @@ const Contact = () => {
         </div>
         <div className="categories">
           <h3>CATEGORIES</h3>
-          <ul>
-            <li>Policies and Guidelines</li>
-            <li>Frequently Asked Questions</li>
-            <li>Account Settings</li>
-            <li>User Consent</li>
-            <li>Data Regulation</li>
+          <ul id="contact-first-ul">
+            <li>
+              <Link to="/dev">Policies and Guidelines</Link>
+            </li>
+            <li>
+              <Link to="/dev">Frequently Asked Questions</Link>
+            </li>
+            <li>
+              <Link to="/dev">Account Settings</Link>
+            </li>
+            <li>
+              <Link to="/dev">User Consent</Link>
+            </li>
+            <li>
+              <Link to="/dev">Data Regulation</Link>
+            </li>
           </ul>
         </div>
       </aside>
@@ -33,7 +44,7 @@ const Contact = () => {
         </div>
         <div className="contact-method">
           <h3>Email</h3>
-          <p>support@jamieblog.com</p>
+          <p>support@storysphere.com</p>
         </div>
         <div className="contact-method">
           <h3>Phone</h3>
